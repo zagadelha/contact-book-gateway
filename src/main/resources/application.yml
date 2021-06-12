@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: cb-gateway
+  cloud:
+    gateway:
+      routes:        - id: cb-core
+          uri: lb://cb-config
+          predicates:
+            - Path=/contact-book/**
+        - id: cb-auth
+          uri: lb://cb-auth
+          predicates:
+            - Path=/contact-book/auth/**
+    
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:      defaultZone: http://localhost:8761/eureka
+  instance:    hostname: localhost
+    
+server:
+  port: 8989
+   
